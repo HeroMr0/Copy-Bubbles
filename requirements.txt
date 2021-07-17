@@ -1,0 +1,3 @@
+Amino.py
+requests
+urllib3

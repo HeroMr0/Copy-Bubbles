@@ -10,7 +10,7 @@ def upload_bubble(file,comId):
         B=comId;C=file;A=requests.post(f"https://service.narvii.com/api/v1/x{B}/s/chat/chat-bubble/templates/107147e9-05c5-405f-8553-af65d2823457/generate",data=C,headers=cli.headers);D=json.loads(A.text)[_B]['bubbleId'];print(D);A=requests.post(f"https://service.narvii.com/api/v1/x{B}/s/chat/chat-bubble/{D}",data=C,headers=cli.headers)
         try:print(A.status_code)
         except:pass
-import amino
+import amino,time
 try:
         with open(_C,'r')as file_:para=file_.readlines();cli=amino.Client(deviceId=para[2].strip());cli.login(email=para[0].strip(),password=para[1].strip())
 except FileNotFoundError:

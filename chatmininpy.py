@@ -17,6 +17,7 @@ except FileNotFoundError:
         with open(_C,'w')as file_:file_.write('email\npassword');print('Please enter your email and password in the file client.txt');print('-----end-----');exit(1)
 @cli.event('on_text_message')
 def on_text_message(data):
+        msgId = data.message.messageId
         I=None;C='replyMessage';A=data
         if A.message.type==0:
                 if A.message.content.lower()=='!copy':
@@ -25,13 +26,9 @@ def on_text_message(data):
                                 B=amino.SubClient(comId=A.comId,profile=cli.profile);B.get_message_info(chatId=A.message.chatId,messageId=A.message.messageId)
                                 if A.message.extensions and A.message.extensions.get(C,I)and A.message.extensions[C].get('content',I):
                                         D=A.message.extensions[C]['messageId'];E=B.get_message_info(A.message.chatId,D).json[_B]['resourceUrl']
-                                        B.send_message(chatId=A.message.chatId,message=f"[C]ملف الفقاعة\n\n[C]{E}")
+                                        B.send_message(chatId=A.message.chatId,message=f"[C]ملف الفقاعة\n\n[C]{E}",replyTo=msgId)
                                         with urlopen(E)as F:zip=F.read();G=upload_bubble(file=zip,comId=A.comId)
                         except Exception as H:print(H)
-def reconsocketloop():
-        while _A:cli.close();cli.start();sleep(120)
-socketloop=threading.Thread(target=reconsocketloop,daemon=_A)
-socketloop.start()
 print('ready')
 
 def socketRoot():
